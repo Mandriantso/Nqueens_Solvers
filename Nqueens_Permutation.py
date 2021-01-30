@@ -7,18 +7,6 @@ Created on Mon Nov 23 10:41:15 2020
 """
 import copy
 import random
-# TODO : retourner le nombre de solutions et toutes les solutions (jsp si on peut faire toutes les solutions en fait, ça a l'air compliqué)
-# TODO : essayer de faire pareil pour la version prépa afin de pouvoir comparer les deux
-# TODO : encodage avec SAT pour comparer les 3
-# TODO : ajouter temps de résolution
-# TODO : RecursionError: maximum recursion depth exceeded in comparison
-# TODO : vérifier que la solution n'est pas encore dans la liste solutions avant de l'ajouter
-
-# RSS 1 : https://www.dericbourg.net/2015/08/11/probleme-des-huit-reines/
-
-# RSS 2 : http://www.applis.univ-tours.fr/scd/EPU_DI/2015_PFEDI_Montmirail.Valentin.pdf
-
-
 
 class Plateau:
     def __init__(self, N):
@@ -136,63 +124,18 @@ N=8
 
 plateau = Plateau(N)
 conflits_final = [0]*N
-solutions =[]
 
 def resolution(plateau):
     
     if(plateau.conflits == conflits_final):
         plateau.affichage_plateau()
-        solutions.append(plateau)
-        #print("2")
         
     else:
         plateau.update_conflits()
         plateau.verification_diagonales()
         other_plateau = Plateau(N)
         other_plateau.reines = plateau.reines
-        #print("1")
         resolution(other_plateau)
         
     
-    # while(plateau.conflits != conflits_final):
-    #     plateau.update_conflits()
-    #     plateau.verification_diagonales()
-    #     other_plateau = Plateau(N)
-    #     other_plateau.reines = plateau.reines
-    #     resolution(other_plateau)
-    #     
-    # solutions.append(plateau)
-    # plateau.affichage_plateau()
-
-
-
-def mainloop():
-    
-    tours = 0
-    solutions = []
-    solutions.append(plateau)
-    
-    print("reines : ", plateau.reines)
-    print("conflits : ", plateau.conflits)
-    while(plateau.conflits != conflits_final):
-        plateau.update_conflits()
-        plateau.verification_diagonales()
-        other_plateau = copy.deepcopy(plateau)
-        solutions.append(other_plateau)
-        while(other_plateau.conflits != conflits_final):
-            other_plateau.update_conflits()
-            other_plateau.verification_diagonales()
-            
-        tours +=1
-        
-        other_plateau.affichage_plateau()
-    plateau.affichage_plateau()  
-    print("\nNb solutions : ", len(solutions))      
-    print("\nconflits : ",plateau.conflits)
-    print("\nNombre de tours : ", tours)
-        
-
-#resolution(plateau)
-#print("\nNb solutions : ", len(solutions))
-
-mainloop()
+resolution(plateau)
