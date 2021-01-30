@@ -5,10 +5,6 @@ Created on Sat Jan 30 14:41:12 2021
 @author: MAEVA
 
 """
-import sys
-import string
-import os
-import linecache
 
 n = input("Enter n: ")
 n = int(n)
